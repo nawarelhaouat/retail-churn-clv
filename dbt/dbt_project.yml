@@ -1,0 +1,16 @@
+name: retail_dw
+version: "1.0.0"
+profile: retail_dw
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+
+models:
+  retail_dw:
+    staging:
+      +schema: staging
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table

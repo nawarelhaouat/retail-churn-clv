@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Online Retail II loaded unchanged by src/data/load_raw.py (all columns TEXT)."
+    tables:
+      - name: online_retail
+        description: "One row per invoice line, both Excel sheets, as received."
