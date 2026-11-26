@@ -87,3 +87,9 @@ erDiagram
 Guests (no customer ID) and cancellations are **kept and flagged**, not removed.
 
 ![dbt lineage](docs/dbt_lineage.png)
+
+### Orchestration (Airflow)
+
+The DAG `retail_pipeline` runs daily: extract → load → dbt seed → dbt run → dbt test. Each task retries twice; only one run can be active at a time, because the load truncates and reloads the raw table.
+
+![Airflow DAG](docs/airflow_dag.png)
