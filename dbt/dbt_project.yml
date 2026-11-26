@@ -5,6 +5,7 @@ profile: retail_dw
 model-paths: ["models"]
 macro-paths: ["macros"]
 test-paths: ["tests"]
+seed-paths: ["seeds"]
 
 models:
   retail_dw:
@@ -14,3 +15,7 @@ models:
     marts:
       +schema: marts
       +materialized: table
+
+seeds:
+  retail_dw:
+    +schema: staging

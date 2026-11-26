@@ -1,0 +1,21 @@
+stock_code,category
+POST,postage
+DOT,postage
+C2,postage
+M,manual adjustment
+ADJUST,manual adjustment
+ADJUST2,manual adjustment
+D,discount
+S,samples
+BANK CHARGES,fee
+AMAZONFEE,fee
+CRUK,fee
+GIFT_0001_10,gift voucher
+GIFT_0001_20,gift voucher
+GIFT_0001_30,gift voucher
+GIFT_0001_40,gift voucher
+GIFT_0001_50,gift voucher
+GIFT_0001_70,gift voucher
+GIFT_0001_80,gift voucher
+TEST001,test
+TEST002,test
