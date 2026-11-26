@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: "One row per invoice line. Revenue is negative for cancellations, so SUM(revenue) = net revenue."
+    columns:
+      - name: sales_key
+        tests: [unique, not_null]
+      - name: date_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: customer_key
+        description: "-1 = guest checkout (no customer ID)."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: product_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: country_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_country')
+                field: country_key
+
+  - name: dim_customer
+    description: "One row per customer, plus key -1 for guests."
+    columns:
+      - name: customer_key
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [unique]
+
+  - name: dim_product
+    description: "One row per stock code with its most frequent description."
+    columns:
+      - name: product_key
+        tests: [unique, not_null]
+      - name: stock_code
+        tests: [unique, not_null]
+      - name: product_category
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['merchandise', 'postage', 'manual adjustment', 'discount', 'samples', 'fee', 'gift voucher', 'test']
+
+  - name: dim_date
+    description: "One row per calendar day (date spine)."
+    columns:
+      - name: date_key
+        tests: [unique, not_null]
+
+  - name: dim_country
+    columns:
+      - name: country_key
+        tests: [unique, not_null]
+      - name: country_name
+        tests: [unique, not_null]
