@@ -93,3 +93,16 @@ Guests (no customer ID) and cancellations are **kept and flagged**, not removed.
 The DAG `retail_pipeline` runs daily: extract → load → dbt seed → dbt run → dbt test. Each task retries twice; only one run can be active at a time, because the load truncates and reloads the raw table.
 
 ![Airflow DAG](docs/airflow_dag.png)
+
+## SQL analysis
+
+Queries are in [`sql/analysis/`](sql/analysis). Key findings:
+
+- **Seasonality:** revenue peaks from September to November (Nov 2010: £1.42M, Nov 2011: £1.46M), when shops stock up for Christmas. December drops sharply because the stock is already bought.
+- **Country mix:** the UK brings 84.9% of net revenue. Some export markets are a few large B2B accounts: Ireland generates £610k from only 5 customers.
+- **Top products:** REGENCY CAKESTAND 3 TIER leads by revenue (£314k); JUMBO BAG RED RETROSPOT sells the most units (95,963) but at a much lower price per unit (£1.88 vs £12.55).
+- **Repeat customers:** 72.4% of customers placed 2+ orders (median: 3 orders), as expected for a mostly wholesale customer base.
+- **Basket size:** the average order (£533 in 2011) is far above the median (£305): order values are right-skewed by a few very large orders.
+- **Retention:** only ~15–25% of a cohort buys again in the month after their first purchase, but many return later, so a 30-day churn window would be too short. This motivates a longer window (e.g. 90 days) in Part B.
+- **Revenue concentration:** the top 10% of customers generate 63.7% of revenue (top 20%: 77.4%). Losing a single high-value customer matters far more than losing a small one, which is why churn risk is combined with CLV.
+- **Data caveats:** December 2011 is a partial month (data ends 9 Dec 2011). Dec 2009 counts every customer as new, and some customers have negative total revenue because they cancelled orders placed before the data starts (left-censoring).
