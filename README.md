@@ -106,3 +106,9 @@ Queries are in [`sql/analysis/`](sql/analysis). Key findings:
 - **Retention:** only ~15–25% of a cohort buys again in the month after their first purchase, but many return later, so a 30-day churn window would be too short. This motivates a longer window (e.g. 90 days) in Part B.
 - **Revenue concentration:** the top 10% of customers generate 63.7% of revenue (top 20%: 77.4%). Losing a single high-value customer matters far more than losing a small one, which is why churn risk is combined with CLV.
 - **Data caveats:** December 2011 is a partial month (data ends 9 Dec 2011). Dec 2009 counts every customer as new, and some customers have negative total revenue because they cancelled orders placed before the data starts (left-censoring).
+
+## Power BI dashboard
+
+Connected to the `marts` schema (Import mode). The model mirrors the star schema with one-to-many, single-direction relationships and a marked date table. DAX measures: Total Revenue, Gross Sales, Cancellation Rate, Orders, Average Basket, Active Customers, MoM Growth %, Revenue YTD.
+
+![Power BI dashboard](docs/powerbi_dashboard.png)
