@@ -112,3 +112,13 @@ Queries are in [`sql/analysis/`](sql/analysis). Key findings:
 Connected to the `marts` schema (Import mode). The model mirrors the star schema with one-to-many, single-direction relationships and a marked date table. DAX measures: Total Revenue, Gross Sales, Cancellation Rate, Orders, Average Basket, Active Customers, MoM Growth %, Revenue YTD.
 
 ![Power BI dashboard](docs/powerbi_dashboard.png)
+
+## Churn definition
+
+- **Churn** = an active customer places no order in the 90 days after the cutoff date.
+- **Why 90 days:** 80.7% of repeat purchases happen within 90 days of the previous one (30 days would cover only 49.3%). A shorter window would label regular customers as churned.
+- **Population:** customers with at least one order in the 365 days before the cutoff.
+- **Cutoffs:** train = 2011-06-11, test = 2011-09-10 (the latest cutoff that still has a full 90-day window before the data ends on 2011-12-09).
+- **Churn rate:** 64.2% at the train cutoff, 49.4% at the test cutoff.
+
+![Days between purchases](docs/purchase_gaps.png)
